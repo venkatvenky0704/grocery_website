@@ -82,7 +82,7 @@ const products = [
     { id: 1, name: 'Watermelon(1kg)', price: 35, image: 'image/watermelon.jfif', category: 'fruits' },
     { id: 2, name: 'Mango(1kg)', price: 55, image: 'image/mango.jfif', category: 'fruits' },
     { id: 3, name: 'Organic Orange(1kg)', price: 50, image: 'image/orange.jfif', category: 'fruits' },
-    { id: 4, name: 'Red Apples (1kg)', price: 90, image: 'image/apple.jfif', category: 'fruits' },
+    { id: 4, name: 'Red Apples (1kg)', price: 90, image: 'image/Apple.jfif', category: 'fruits' },
     { id: 5, name: 'Green Grapes (500g)', price: 65, image: 'image/grapes.jfif', category: 'fruits' },
 
     { id: 6, name: 'Fresh Onion (1kg)', price: 25, image: 'image/onion.jfif', category: 'vegetables' },
