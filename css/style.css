@@ -1,0 +1,853 @@
+/* Root variables: Define reusable colors and other values for easy theme changes */
+:root {
+    --green: #27ae60; /* Main accent color */
+    --black: #130f40; /* Primary text/dark color */
+    --light-color: #666; /* Lighter text color for paragraphs */
+    --box-shadow: 0 .3rem 1rem rgba(0,0,0,0.1); /* Standard box shadow for elements */
+    --border: .2rem solid rgba(0,0,0,0.1); /* Light border style */
+    --outline: .1rem solid rgba(0,0,0,0.1); /* Light outline style */
+    --outline-hover: .2rem solid var(--black); /* Darker outline for hover effects */
+}
+
+/* Import Google Fonts: Loads the 'Poppins' font for a modern look */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Global reset and base styles for all elements */
+* {
+    font-family: "Poppins", sans-serif; /* Sets default font */
+    margin: 0; /* Removes default margins */
+    padding: 0; /* Removes default paddings */
+    box-sizing: border-box; /* Includes padding and border in element's total width/height */
+    outline: none; /* Removes outline on focus */
+    border: none; /* Removes default borders */
+    text-decoration: none; /* Removes underlines from links */
+    text-transform: capitalize; /* Capitalizes the first letter of each word (can override specific elements) */
+    transition: all 0.2s linear; /* Smooth transition for all property changes */
+}
+
+/* HTML base styles */
+html {
+    font-size: 62.5%; /* Sets base font size for easy rem unit scaling (1rem = 10px) */
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    scroll-padding-top: 7rem; /* Prevents content from being hidden under fixed header when scrolling to an anchor */
+    overflow-x: hidden; /* Hides horizontal scrollbar if content overflows */
+}
+
+/* Body background color */
+body {
+    background: #eee; /* Light gray background */
+}
+
+/* Section padding: Applies padding to all sections for consistent spacing */
+section {
+    padding: 2rem 9%; /* Top/bottom padding of 2rem, left/right padding of 9% */
+}
+
+/* General heading style for main sections */
+.heading {
+    text-align: center; /* Centers the text */
+    padding: 2rem 0; /* Top/bottom padding */
+    padding-bottom: 3rem; /* Extra padding at the bottom */
+    font-size: 3.5rem; /* Large font size */
+    color: var(--black); /* Dark color */
+}
+
+/* Style for the 'span' within headings to create a highlighted effect */
+.heading span {
+    background: var(--green); /* Green background */
+    color: #fff; /* White text */
+    display: inline-block; /* Allows padding and clip-path */
+    padding: .5rem 3rem; /* Padding around the text */
+    /* Creates a polygon shape for the background (like a banner) */
+    clip-path: polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%);
+}
+
+/* General button style */
+.btn {
+    border: .2rem solid var(--black); /* Dark border */
+    margin-top: 1rem; /* Space above button */
+    display: inline-block; /* Allows padding and width/height, but flows with text */
+    padding: .8rem 3rem; /* Padding inside the button */
+    font-size: 1.7rem; /* Font size */
+    border-radius: .5rem; /* Rounded corners */
+    cursor: pointer; /* Changes cursor to a pointer on hover */
+    background: none; /* No background fill */
+    color: var(--black); /* Dark text color */
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: var(--green); /* Green background on hover */
+    color: white; /* White text on hover */
+}
+
+/* --- Header Section --- */
+.header {
+    position: fixed; /* Stays fixed at the top of the viewport */
+    top: 0; /* Aligns to the top edge */
+    left: 0; /* Aligns to the left edge */
+    right: 0; /* Stretches to the right edge */
+    display: flex; /* Uses Flexbox for internal layout */
+    align-items: center; /* Vertically aligns items in the center */
+    justify-content: space-between; /* Distributes space between items */
+    padding: 2rem 9%; /* Padding inside the header */
+    background-color: #fff; /* White background */
+    box-shadow: var(--box-shadow); /* Applies a shadow */
+    z-index: 1000; /* Ensures header stays on top of other content */
+}
+
+/* Header logo styling */
+.header .logo {
+    font-size: 3.5rem; /* Large font size for logo text */
+    color: var(--black); /* Dark color */
+    display: flex; /* Uses Flexbox for icon and text alignment */
+    align-items: center; /* Vertically aligns icon and text */
+}
+
+/* Header logo icon styling */
+.header .logo .basket-icon {
+    width: 4rem; /* Fixed width */
+    height: 4rem; /* Fixed height */
+    margin-right: .5rem; /* Space between icon and text */
+}
+
+/* Default Navbar style (for desktop) */
+.header .navbar {
+    display: flex; /* Arranges nav items horizontally */
+    align-items: center; /* Vertically aligns nav items */
+}
+
+/* Styles for individual navigation links */
+.header .navbar a {
+    font-size: 1.7rem; /* Font size */
+    margin: 0 1rem; /* Horizontal spacing between links */
+    color: var(--black); /* Dark text color */
+    display: inline-block; /* Allows internal spacing and proper alignment */
+}
+
+/* Navbar link hover effect */
+.header .navbar a:hover {
+    color: var(--green); /* Green text on hover */
+}
+
+/* NEW: Dropdown Container Styles (for desktop categories) */
+.dropdown {
+    position: relative; /* Essential for positioning the dropdown content relative to this container */
+    display: inline-block; /* Allows it to sit next to other nav items horizontally */
+}
+
+/* Dropdown button (the "Categories" link) */
+.dropdown .dropbtn {
+    font-size: 1.7rem; /* Font size */
+    margin: 0 1rem; /* Horizontal spacing */
+    color: var(--black); /* Dark text color */
+    padding: 0; /* Remove default anchor padding if any */
+    cursor: pointer; /* Indicates it's clickable */
+    display: inline-block; /* Allows it to be part of the horizontal nav */
+}
+
+/* Dropdown button hover effect */
+.dropdown .dropbtn:hover {
+    color: var(--green); /* Green text on hover */
+}
+
+/* Dropdown content (the actual list of categories) */
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positions it relative to the .dropdown container */
+    background-color: #f9f9f9; /* Light background */
+    min-width: 160px; /* Minimum width */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    z-index: 1; /* Ensures it appears above other content when open */
+    border-radius: .5rem; /* Rounded corners */
+    padding: 1rem 0; /* Vertical padding */
+    left: 50%; /* Starts positioning from the center of its parent */
+    transform: translateX(-50%); /* Shifts it left by half its own width to truly center it */
+    top: 100%; /* Positions it directly below the dropdown button */
+    opacity: 0; /* Initially fully transparent */
+    visibility: hidden; /* Ensures it's not clickable when hidden */
+    transform: translateY(10px) translateX(-50%); /* Slight initial offset for a subtle slide-down animation */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Smooth animation for showing/hiding */
+}
+
+/* Links inside the dropdown content */
+.dropdown-content a {
+    color: var(--black); /* Dark text color */
+    padding: 1rem 1.5rem; /* Padding around each link */
+    text-decoration: none; /* No underline */
+    display: block; /* Makes links stack vertically */
+    text-align: left; /* Aligns text to the left */
+    font-size: 1.6rem; /* Font size */
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+    transition: background-color 0.2s, color 0.2s, padding-left 0.2s; /* Smooth hover transition */
+    margin: 0; /* Removes any default margin */
+}
+
+/* Dropdown content link hover effect */
+.dropdown-content a:hover {
+    background-color: var(--green); /* Green background on hover */
+    color: white; /* White text on hover */
+    padding-left: 2rem; /* Subtle slide-right effect on hover */
+}
+
+/* Show the dropdown menu on hover of the parent .dropdown */
+.dropdown:hover .dropdown-content {
+    display: block; /* Shows the dropdown content */
+    opacity: 1; /* Makes it fully opaque */
+    visibility: visible; /* Makes it visible and clickable */
+    transform: translateY(0) translateX(-50%); /* Slides it into its final position */
+}
+/* END NEW Dropdown Styles */
+
+/* Hide the mobile categories list on desktop by default */
+#menu-categories-list {
+    display: none; /* Hidden on desktop, only shown in mobile menu */
+}
+
+/* Styles for header icons (menu, search, cart, user) */
+.header .icons div,
+.header .icons a {
+    height: 4.5rem; /* Fixed height */
+    width: 4.5rem; /* Fixed width (creates a circle/square with border-radius) */
+    line-height: 4.5rem; /* Centers icon vertically */
+    border-radius: .5rem; /* Slightly rounded corners */
+    background: #eee; /* Light gray background */
+    color: var(--black); /* Dark icon color */
+    font-size: 1.8rem; /* Icon size */
+    margin-right: .3rem; /* Small space between icons */
+    text-align: center; /* Centers icon horizontally */
+    cursor: pointer; /* Indicates it's clickable */
+    display: inline-block; /* Allows horizontal arrangement */
+}
+
+/* Header icons hover effect */
+.header .icons div:hover,
+.header .icons a:hover {
+    background: var(--green); /* Green background on hover */
+    color: white; /* White icon on hover */
+}
+
+/* Cart Quantity Badge styling */
+.header .icons .fa-shopping-cart {
+    position: relative; /* Needed for absolute positioning of the badge within it */
+}
+
+.header .icons .cart-quantity-badge {
+    position: absolute; /* Positions the badge relative to the cart icon */
+    top: -0.5rem; /* Adjusts vertical position */
+    right: -0.5rem; /* Adjusts horizontal position */
+    background-color: var(--green); /* Green background */
+    color: white; /* White text */
+    font-size: 1.2rem; /* Smaller font size */
+    font-weight: bold; /* Bold text */
+    border-radius: 50%; /* Makes it a circle */
+    padding: 0.2rem 0.6rem; /* Padding inside the badge */
+    min-width: 2rem; /* Ensures it's a circle even for single digits */
+    height: 2rem; /* Ensures it's a circle */
+    display: flex; /* Uses Flexbox to center number inside */
+    align-items: center; /* Vertically centers content */
+    justify-content: center; /* Horizontally centers content */
+    text-align: center; /* Fallback for text centering */
+    box-shadow: var(--box-shadow); /* Small shadow */
+    pointer-events: none; /* Allows clicks to pass through to the cart icon underneath */
+}
+
+/* Search Form styling (initially hidden) */
+.header .search-form {
+    position: absolute; /* Positions it relative to the header */
+    top: 110%; /* Starts below the header */
+    right: -110%; /* Hidden off-screen to the right */
+    width: 50rem; /* Fixed width */
+    height: 5rem; /* Fixed height */
+    background: white; /* White background */
+    border-radius: .5rem; /* Rounded corners */
+    overflow: hidden; /* Hides content that overflows */
+    display: flex; /* Uses Flexbox for input and label */
+    align-items: center; /* Vertically aligns items */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    transform-origin: top right; /* Sets the origin for transform animations */
+}
+
+/* Search form active state (shown) */
+.header .search-form.active {
+    right: 2rem; /* Slides into view from the right */
+    transition: .4s linear; /* Smooth transition */
+}
+
+/* Search input field styling */
+.header .search-form input {
+    height: 100%; /* Fills the height of its parent */
+    width: 100%; /* Fills the width of its parent */
+    background: none; /* No background */
+    text-transform: none; /* Allows normal capitalization for input */
+    font-size: 1.6rem; /* Font size */
+    color: var(--black); /* Text color */
+    padding: 0 1.5rem; /* Horizontal padding */
+}
+
+/* Search label (magnifying glass icon) styling */
+.header .search-form label {
+    font-size: 2.2rem; /* Icon size */
+    padding-right: 1.5rem; /* Padding to the right of the icon */
+    color: var(--black); /* Icon color */
+    cursor: pointer; /* Indicates clickable */
+}
+
+/* Search label hover effect */
+.header .search-form label:hover {
+    color: var(--green); /* Green icon on hover */
+}
+
+/* Shopping Cart styling (initially hidden) */
+.header .shopping-cart {
+    position: absolute; /* Positions it relative to the header */
+    top: 110%; /* Starts below the header */
+    right: -110%; /* Hidden off-screen to the right */
+    padding: 1rem; /* Padding inside the cart */
+    border-radius: .5rem; /* Rounded corners */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    width: 35rem; /* Fixed width */
+    background: white; /* White background */
+}
+
+/* Shopping cart active state (shown) */
+.header .shopping-cart.active {
+    right: 2rem; /* Slides into view from the right */
+    transition: .4s linear; /* Smooth transition */
+}
+
+/* Styling for each item box within the shopping cart */
+.header .shopping-cart .box {
+    display: flex; /* Uses Flexbox for image, content, and trash icon */
+    gap: 1rem; /* Space between flex items */
+    align-items: center; /* Vertically aligns items */
+    position: relative; /* Needed for positioning the trash icon */
+    margin: 1rem 0; /* Vertical margin for spacing between items */
+    padding: 1rem; /* Padding inside each item box */
+    border: var(--border); /* Light border */
+    border-radius: .5rem; /* Rounded corners */
+}
+
+/* Product image inside the shopping cart item */
+.header .shopping-cart .box img {
+    height: 8rem; /* Fixed height */
+    width: 8rem; /* Fixed width */
+    object-fit: contain; /* Scales image to fit without cropping */
+    border-radius: .5rem; /* Rounded corners */
+}
+
+/* Trash icon within the shopping cart item */
+.header .shopping-cart .box .fa-trash {
+    font-size: 2rem; /* Icon size */
+    position: absolute; /* Positions relative to the item box */
+    top: 50%; /* Vertically centers it */
+    right: 1rem; /* Positions from the right */
+    cursor: pointer; /* Indicates clickable */
+    color: var(--light-color); /* Light gray color */
+    transform: translateY(-50%); /* Adjusts for perfect vertical centering */
+}
+
+/* Trash icon hover effect */
+.header .shopping-cart .box .fa-trash:hover {
+    color: var(--green); /* Green on hover */
+}
+
+/* Content (name, price, quantity) within shopping cart item */
+.header .shopping-cart .box .content h3 {
+    color: var(--black); /* Dark text color */
+    font-size: 1.7rem; /* Font size for product name */
+    padding-bottom: .5rem; /* Space below product name */
+}
+
+/* Price within shopping cart item */
+.header .shopping-cart .box .content .price {
+    color: var(--light-color); /* Light gray text color */
+    font-size: 1.5rem; /* Font size for price */
+}
+
+/* Quantity within shopping cart item */
+.header .shopping-cart .box .content .quantity {
+    color: var(--light-color); /* Light gray text color */
+    font-size: 1.4rem; /* Font size for quantity */
+    padding-left: 1rem; /* Space to the left of quantity */
+}
+
+/* Total price display in shopping cart */
+.header .shopping-cart .total {
+    font-size: 2.5rem; /* Large font size */
+    padding: 1rem; /* Padding around the text */
+    text-align: center; /* Centers the text */
+    color: var(--black); /* Dark text color */
+    border-top: var(--border); /* Top border as a separator */
+    margin-top: 1rem; /* Space above the total */
+}
+
+/* Checkout button in shopping cart */
+.header .shopping-cart .btn {
+    display: block; /* Makes button take full width */
+    text-align: center; /* Centers text inside button */
+    margin: 1rem auto; /* Centers button horizontally and adds vertical margin */
+}
+
+/* Login Form styling (initially hidden) */
+.header .login-form {
+    position: absolute; /* Positions relative to the header */
+    top: 110%; /* Starts below the header */
+    right: -110%; /* Hidden off-screen to the right */
+    width: 35rem; /* Fixed width */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    padding: 2rem; /* Padding inside the form */
+    border-radius: .5rem; /* Rounded corners */
+    background: #fff; /* White background */
+    text-align: center; /* Centers content horizontally */
+    transform-origin: top right; /* Sets the origin for transform animations */
+}
+
+/* Login form active state (shown) */
+.header .login-form.active {
+    right: 2rem; /* Slides into view from the right */
+    transition: .4s linear; /* Smooth transition */
+}
+
+/* Login form heading */
+.header .login-form h3 {
+    font-size: 2.8rem; /* Large font size */
+    text-transform: uppercase; /* Uppercase text */
+    color: var(--black); /* Dark text color */
+    margin-bottom: 1.5rem; /* Space below heading */
+}
+
+/* Input fields within the login form */
+.header .login-form .box {
+    width: 100%; /* Full width */
+    border: var(--border); /* Light border */
+    margin: .7rem 0; /* Vertical margin */
+    background: #eee; /* Light gray background */
+    border-radius: .5rem; /* Rounded corners */
+    padding: 1rem; /* Padding inside input */
+    font-size: 1.6rem; /* Font size */
+    color: var(--black); /* Text color */
+    text-transform: none; /* Allows normal capitalization for input */
+}
+
+/* Paragraph text within login form (e.g., "Forgot password") */
+.header .login-form p {
+    font-size: 1.4rem; /* Smaller font size */
+    padding: .7rem 0; /* Vertical padding */
+    color: var(--light-color); /* Light gray text color */
+}
+
+/* Links within login form paragraphs */
+.header .login-form p a {
+    color: var(--green); /* Green link color */
+    text-decoration: underline; /* Underlined text */
+}
+
+/* Toast Notification styling (initially hidden) */
+#toast-notification {
+    position: fixed; /* Stays fixed relative to the viewport */
+    bottom: 2rem; /* Positions 2rem from the bottom */
+    left: 50%; /* Starts from the horizontal center */
+    transform: translateX(-50%); /* Shifts it left by half its width to truly center */
+    background-color: var(--green); /* Green background */
+    color: white; /* White text */
+    padding: 1.5rem 2.5rem; /* Padding inside */
+    border-radius: .5rem; /* Rounded corners */
+    font-size: 1.8rem; /* Font size */
+    z-index: 1100; /* Higher z-index to appear above header */
+    opacity: 0; /* Initially fully transparent */
+    visibility: hidden; /* Ensures it's not clickable when hidden */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Smooth fade-in/out */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    white-space: nowrap; /* Prevents message from wrapping */
+}
+
+/* Toast notification active state (shown) */
+#toast-notification.active {
+    opacity: 1; /* Fully opaque */
+    visibility: visible; /* Visible and clickable */
+}
+
+/* --- Home Section --- */
+.home {
+    display: flex; /* Uses Flexbox for content alignment */
+    align-items: center; /* Vertically aligns content in the center */
+    min-height: 100vh; /* Takes at least the full viewport height */
+    background: url('../image/banner-bg.jfif') no-repeat; /* Background image */
+    background-position: center; /* Centers the background image */
+    background-size: cover; /* Scales image to cover the entire section */
+    padding-top: 7rem; /* Adds padding to account for the fixed header */
+}
+
+/* Content (text and button) within the home section */
+.home .content {
+    max-width: 50rem; /* Maximum width for the text content */
+}
+
+/* Heading in the home section */
+.home .content h3 {
+    font-size: 4.5rem; /* Large font size */
+    color: var(--black); /* Dark text color */
+    line-height: 1.2; /* Line height for better readability */
+}
+
+/* Paragraph text in the home section */
+.home .content p {
+    font-size: 1.7rem; /* Font size */
+    padding: 1rem 0; /* Vertical padding */
+    color: var(--light-color); /* Light gray text color */
+    line-height: 1.8; /* Line height for better readability */
+}
+
+/* --- Features Section --- */
+.features .box-container {
+    display: grid; /* Uses CSS Grid for layout */
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr)); /* Responsive columns, min 30rem wide */
+    gap: 1.5rem; /* Space between grid items */
+}
+
+/* Individual feature box styling */
+.features .box-container .box {
+    padding: 3rem 2rem; /* Padding inside the box */
+    background: #fff; /* White background */
+    outline: var(--outline); /* Light outline */
+    outline-offset: -1rem; /* Moves outline inwards */
+    text-align: center; /* Centers text and images */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    border-radius: .5rem; /* Rounded corners */
+    /* *** IMPORTANT CHANGE: Add position: relative; *** */
+    position: relative; /* Crucial for absolute positioning of the button */
+    padding-bottom: 7rem; /* Add extra padding to make space for the absolutely positioned button */
+    /* Remove any previous flexbox properties if you had them here for overall content alignment */
+}
+
+/* Feature box hover effect */
+.features .box-container .box:hover {
+    outline: var(--outline-hover); /* Darker outline on hover */
+    outline-offset: 0rem; /* Moves outline to the edge on hover */
+}
+
+/* Image within feature box */
+.features .box-container .box img {
+    margin: 1rem 0; /* Vertical margin for image */
+    height: 15rem; /* Fixed height */
+    object-fit: contain; /* Scales image to fit without cropping */
+    width: 100%; /* Make image responsive within the box */
+    max-width: 100px; /* Limit max size for consistency */
+}
+
+/* Heading within feature box */
+.features .box-container .box h3 {
+    font-size: 2.5rem; /* Font size */
+    line-height: 1.8; /* Line height */
+    color: var(--black); /* Dark text color */
+}
+
+/* Paragraph within feature box */
+.features .box-container .box p {
+    font-size: 1.5rem; /* Font size */
+    line-height: 1.8; /* Line height */
+    color: var(--light-color); /* Light gray text color */
+    padding: 1rem 0; /* Vertical padding */
+    /* Remove flex-grow if you had it here, as it's not needed with absolute positioning for the button */
+}
+.features .box-container .box .btn {
+    /* Existing btn styles */
+    border: .2rem solid var(--black);
+    display: inline-block;
+    padding: .8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    background: none;
+    color: var(--black);
+    /* New styles for absolute positioning */
+    position: absolute; /* Take it out of normal flow */
+    bottom: 2rem; /* Position 2rem from the bottom of the parent .box */
+    left: 50%; /* Start at 50% from the left */
+    transform: translateX(-50%); /* Shift left by half its own width to truly center */
+    margin-top: 0;
+}
+
+/* --- Products Section --- */
+/* No major changes needed for the main .products section as it's a container for others */
+
+/* Styling for each specific category section within products */
+.category-products-section {
+    margin-bottom: 5rem; /* Space between different product category sections */
+    padding-top: 2rem; /* Padding at the top of each category section */
+}
+
+/* Heading for each product category (e.g., "   Fruits") */
+.category-heading {
+    text-align: center; /* Centers the text */
+    padding: 2rem 0; /* Top/bottom padding */
+    padding-bottom: 2rem; /* Extra padding at the bottom */
+    font-size: 3rem; /* Font size */
+    color: var(--black); /* Dark text color */
+}
+
+/* Span within category headings for highlighted effect */
+.category-heading span {
+    background: var(--green); /* Green background */
+    color: #fff; /* White text */
+    display: inline-block; /* Allows padding and clip-path */
+    padding: .5rem 2rem; /* Padding around text */
+    /* Creates a polygon shape for the background (like a banner) */
+    clip-path: polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0%);
+}
+
+/* Container for products within each category */
+.products .product-container {
+    display: grid; /* Uses CSS Grid for layout */
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr)); /* Responsive columns, min 28rem wide */
+    gap: 1.5rem; /* Space between grid items */
+    padding: 0 2rem; /* Horizontal padding */
+    justify-content: center; /* Centers grid items if there's extra space */
+}
+
+/* Individual product box styling */
+.products .product-container .product-box {
+    padding: 2rem; /* Padding inside the box */
+    background: #fff; /* White background */
+    border-radius: .5rem; /* Rounded corners */
+    text-align: center; /* Centers content */
+    border: var(--border); /* Light border */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    position: relative; /* Needed for any absolute positioning inside */
+    overflow: hidden; /* Hides overflowing content */
+    display: flex; /* Uses Flexbox to align content */
+    flex-direction: column; /* Stacks content vertically */
+    justify-content: space-between; /* Distributes space between items */
+}
+
+/* Product box hover effect */
+.products .product-container .product-box:hover {
+    outline: var(--outline-hover); /* Darker outline on hover */
+    outline-offset: 0rem; /* Moves outline to the edge on hover */
+}
+
+/* Image wrapper within product box for better alignment */
+.products .product-container .product-box .image-wrapper {
+    flex-grow: 1; /* Allows image wrapper to take up available space */
+    display: flex; /* Uses Flexbox to center image */
+    justify-content: center; /* Horizontally centers image */
+    align-items: center; /* Vertically centers image */
+    margin-bottom: 1rem; /* Space below image */
+}
+
+/* Product image styling */
+.products .product-container .product-box img {
+    height: 15rem; /* Fixed height */
+    max-width: 100%; /* Ensures image doesn't overflow its container */
+    object-fit: contain; /* Scales image to fit without cropping */
+}
+
+/* Product name heading */
+.products .product-container .product-box h3 {
+    font-size: 2.2rem; /* Font size */
+    color: var(--black); /* Dark text color */
+    line-height: 1.5; /* Line height */
+    margin-bottom: .5rem; /* Space below product name */
+}
+
+/* Product price styling */
+.products .product-container .product-box .price {
+    font-size: 1.8rem; /* Font size */
+    color: var(--light-color); /* Light gray text color */
+    padding: .5rem 0; /* Vertical padding */
+}
+
+/* Add to cart button within product box */
+.products .product-container .product-box .btn {
+    width: 100%; /* Full width */
+    padding: .8rem 1rem; /* Padding inside button */
+    font-size: 1.6rem; /* Font size */
+}
+
+/* --- Categories Section --- */
+.categories .category-container {
+    display: grid; /* Uses CSS Grid for layout */
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr)); /* Responsive columns, min 26rem wide */
+    gap: 1.5rem; /* Space between grid items */
+}
+
+/* Individual category box styling */
+.categories .category-container .category-box {
+    padding: 3rem 2rem; /* Padding inside the box */
+    background: #fff; /* White background */
+    border-radius: .5rem; /* Rounded corners */
+    text-align: center; /* Centers content */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    outline: var(--outline); /* Light outline */
+    outline-offset: -1rem; /* Moves outline inwards */
+    cursor: pointer; /* Indicates clickable */
+}
+
+/* Category box hover effect */
+.categories .category-container .category-box:hover {
+    outline: var(--outline-hover); /* Darker outline on hover */
+    outline-offset: 0rem; /* Moves outline to the edge on hover */
+}
+
+/* Image within category box */
+.categories .category-container .category-box img {
+    height: 15rem; /* Fixed height */
+    margin-bottom: 1rem; /* Space below image */
+    object-fit: contain; /* Scales image to fit without cropping */
+}
+
+/* Heading within category box */
+.categories .category-container .category-box h3 {
+    font-size: 2rem; /* Font size */
+    color: var(--black); /* Dark text color */
+    margin-bottom: 1rem; /* Space below heading */
+}
+
+/* Button within category box */
+.categories .category-container .category-box .btn {
+    padding: .7rem 2.5rem; /* Padding inside button */
+    font-size: 1.6rem; /* Font size */
+}
+
+/* --- About Us Section --- */
+.about-us .content {
+    background: #fff; /* White background */
+    padding: 3rem; /* Padding inside the content box */
+    border-radius: .5rem; /* Rounded corners */
+    box-shadow: var(--box-shadow); /* Shadow effect */
+    text-align: center; /* Centers text */
+}
+
+/* Paragraphs within about us content */
+.about-us .content p {
+    font-size: 1.6rem; /* Font size */
+    color: var(--light-color); /* Light gray text color */
+    line-height: 1.8; /* Line height */
+    margin-bottom: 1.5rem; /* Space below each paragraph */
+}
+
+/* --- Media Queries (Responsive Design) --- */
+
+/* Styles for screens smaller than 991px (e.g., tablets and smaller desktops) */
+@media (max-width:991px) {
+    html {
+        font-size: 55%; /* Slightly reduces base font size */
+    }
+
+    .header {
+        padding: 2rem; /* Adjusts header padding */
+    }
+
+    section {
+        padding: 2rem; /* Adjusts section padding */
+    }
+
+    /* Hide desktop navbar links by default on smaller screens */
+    .header .navbar a {
+        display: none; /* These links will be hidden by default on mobile */
+    }
+
+    /* NEW: Hide desktop dropdown on mobile */
+    .header .navbar .dropdown {
+        display: none; /* Hides the desktop dropdown menu */
+    }
+
+    /* Ensure menu-btn (hamburger icon) is visible on mobile */
+    #menu-btn {
+        display: inline-block; /* Makes the menu button visible */
+    }
+}
+
+/* Styles for screens smaller than 768px (e.g., larger phones) */
+@media (max-width:768px) {
+    /* Mobile menu default state (hidden) */
+    .header .navbar {
+        position: absolute; /* Positions it relative to the header */
+        top: 110%; /* Starts below the header */
+        right: -110%; /* Hidden off-screen to the right */
+        background: #fff; /* White background */
+        border-radius: .5rem; /* Rounded corners */
+        box-shadow: var(--box-shadow); /* Shadow effect */
+        width: 30rem; /* Fixed width for the menu */
+        transform-origin: top right; /* Sets the origin for transform animations */
+        display: flex; /* Always display as flex so links stack, but move off-screen */
+        flex-direction: column; /* Stacks menu items vertically */
+        padding: 1rem 0; /* Padding for the entire menu */
+    }
+
+    /* Mobile menu active state (shown) */
+    .header .navbar.active {
+        right: 2rem; /* Slides into view from the right */
+        transition: .4s linear; /* Smooth transition */
+    }
+
+    /* Styles for ALL direct links inside the active mobile navbar */
+    .header .navbar.active > a { /* Target direct child links for main nav items */
+        font-size: 2rem; /* Larger font size for readability */
+        margin: 1.5rem; /* Spacing between links */
+        display: block; /* Ensure they are block for vertical stacking */
+        padding: .5rem 1rem; /* Padding for click area */
+    }
+
+    /* SHOW the categories list when navbar is active on mobile */
+    #menu-categories-list {
+        display: block; /* Shows this container when the menu is active */
+        border-top: 1px solid rgba(0,0,0,0.1); /* Separator above categories */
+        margin-top: 1.5rem; /* Space above categories */
+        padding-top: 1rem; /* Padding at the top of categories list */
+    }
+
+    /* Heading for categories within mobile menu */
+    #menu-categories-list h4 {
+        font-size: 1.8rem; /* Font size */
+        color: var(--black); /* Dark text color */
+        padding: 1rem 1.5rem 0.5rem; /* Padding */
+        text-transform: none; /* Keep natural capitalization for heading */
+        text-align: left; /* Align text to the left */
+    }
+
+    /* Individual category links within the mobile menu */
+    #menu-categories-list a {
+        font-size: 1.6rem; /* Font size */
+        color: var(--light-color); /* Light gray text color */
+        display: block; /* Makes links stack vertically */
+        padding: 0.8rem 2.5rem; /* Padding for click area */
+        margin: 0; /* Remove any previous margin */
+        text-transform: capitalize; /* Capitalize each category name */
+        white-space: nowrap; /* Prevent wrapping */
+        transition: all 0.2s linear; /* Smooth hover effect */
+    }
+
+    /* Mobile menu category link hover effect */
+    #menu-categories-list a:hover {
+        color: var(--green); /* Green text on hover */
+        background-color: #f0f0f0; /* Light gray background on hover */
+        padding-left: 3rem; /* Subtle slide-right effect on hover */
+    }
+}
+
+/* Styles for screens smaller than 450px (e.g., small phones) */
+@media (max-width:450px) {
+    html {
+        font-size: 50%; /* Further reduces base font size */
+    }
+
+    .heading {
+        font-size: 2.5rem; /* Smaller main headings */
+    }
+
+    /* Full width for shopping cart on very small screens */
+    .header .shopping-cart {
+        width: 100%; /* Takes full width */
+        right: 0; /* Aligns to left edge */
+        border-radius: 0; /* Removes rounded corners */
+    }
+
+    /* Full width for login form on very small screens */
+    .header .login-form {
+        width: 100%; /* Takes full width */
+        right: 0; /* Aligns to left edge */
+        border-radius: 0; /* Removes rounded corners */
+    }
+}
