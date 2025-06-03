@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Store By Venkat Ganesh</title>
+
+    <link rel="icon" type="image/jfif" href="image/icon.jfif">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">
+            <img src="image/shopping_basket_icon.jfif" alt="Shopping Basket" class="basket-icon"> Grocery
+        </a>
+    
+        
+        <nav class="navbar">
+            <a href="#home"> Home</a>
+            <a href="#features"> Features</a>
+            <a href="#products"> Products</a>
+            
+            <div class="dropdown">
+            <a href="#" class="dropbtn">Categories <i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-content" id="desktop-categories-list">
+                    <a href="#fruits-products">Fruits</a>
+                    <a href="#vegetables-products">Vegetables</a>
+                    <a href="#dairy-products">Dairy Products</a>
+                    <a href="#meat-fish-products">Meat & Fish</a>
+                    <a href="#bakery-products">Bakery Items</a>
+                    <a href="#snacks-beverages-products">Snacks & Beverages</a>
+                </div>
+            </div>
+            <a href="#AboutUs"> About Us</a>
+            <a href="#AContactUs"> Contact Us</a>
+
+            
+            <div id="menu-categories-list">
+                </div>
+        </nav>
+
+        <div class="icons">
+    <div id="search-btn" class="fas fa-search"></div>
+
+    <div id="cart-btn" class="fas fa-shopping-cart">
+        <span class="cart-quantity-badge">0</span>
+    </div>
+    <div id="login-btn" class="fas fa-user"></div>
+
+    </div>
+
+        <form class="search-form">
+            <input type="search" id="search-box" placeholder="Search here">
+            <label for ="search-box" class="fa fa-search"></label>
+        </form>
+
+        <div class="shopping-cart">
+            <div class="total">Total: ₹0.00</div> <a href="#" class="btn">Checkout</a> </div>
+
+        <form action="#" class="login-form">
+            <h3>Login Now</h3>
+            <input type="email" placeholder="enter your email" class="box">
+            <input type="password" placeholder="enter your password" class="box">
+            <p>Forgot your password <a href="#">Click Here</a></p>
+            <p>Don't Have an Account <a href="#">Create Now </a></p>
+            <input type="submit" value="Login Now" class="btn">
+        </form>
+    </header>
+
+    <div id="toast-notification">
+        </div>
+
+   <section class="home" id="home">
+    <div class="content">
+        <h3>Fresh and Organic Products</h3>
+        <p>Shop for the freshest fruits, vegetables, and more!</p>
+        <a href="#products" class="btn">Shop Now</a>
+    </div>
+    <img src="image/organic_home_image.jfif" alt="Grocery Store" style="width:100%; max-width:600px;">
+</section>
+<section class="features" id="features">
+    <h1 class="heading">Our <span>Features</span></h1>
+    <div class="box-container">
+        <div class="box">
+            <img src="image/feature-fresh.jfif" alt="Fresh and Organic">
+            <h3>Fresh and Organic</h3>
+            <p>We provide 100% fresh and organic products.</p>
+            <p id="freshOrganicDetails" style="display: none;">
+                Welcome to Fresh and Organic, where we are 100% Natural Goodness! We bring you pure, farm-fresh, and organic products straight from trusted sources for a healthier lifestyle.
+            </p>
+            <a href="javascript:void(0);" class="btn" onclick="toggleDetails('freshOrganicDetails', this)">Read More</a>
+        </div>
+
+        <div class="box">
+            <img src="image/feature-delivery.jfif" alt="Free Delivery">
+            <h3>Free Delivery</h3>
+            <p>Enjoy free delivery on all orders.</p>
+            <p id="freeDeliveryDetails" style="display: none;">
+                Enjoy free delivery on all orders above ₹99—no extra charges, just fresh goodness delivered to your doorstep!
+            </p>
+            <a href="javascript:void(0);" class="btn" onclick="toggleDetails('freeDeliveryDetails', this)">Read More</a>
+        </div>
+
+        <div class="box">
+            <img src="image/feature-payment.png" alt="Easy Payments">
+            <h3>Easy Payments</h3>
+            <p>Multiple secure payment options available.</p>
+            <p id="easyPaymentsDetails" style="display: none;">
+                We support UPI(GPay, PhonePe, Paytm), debit/credit cards, net banking-—secure, fast, and hassle-free., wallets, and COD—choose what works best for you and enjoy a smooth checkout!
+            </p>
+            <a href="javascript:void(0);" class="btn" onclick="toggleDetails('easyPaymentsDetails', this)">Read More</a>
+        </div>
+    </div>
+</section>
+
+    <section class="products" id="products">
+        <h1 class="heading">Our <span>Products</span></h1>
+
+        <section class="category-products-section" id="fruits-products">
+            <h2 class="category-heading">Fresh <span>Fruits</span></h2>
+            <div class="product-container" data-category="fruits"></div>
+        </section>
+
+        <section class="category-products-section" id="vegetables-products">
+            <h2 class="category-heading">Fresh <span>Vegetables</span></h2>
+            <div class="product-container" data-category="vegetables"></div>
+        </section>
+
+        <section class="category-products-section" id="dairy-products">
+            <h2 class="category-heading">Dairy <span>Products</span></h2>
+            <div class="product-container" data-category="dairy"></div>
+        </section>
+
+        <section class="category-products-section" id="meat-fish-products">
+            <h2 class="category-heading">Meat & <span>Fish</span></h2>
+            <div class="product-container" data-category="meat-fish"></div>
+        </section>
+
+        <section class="category-products-section" id="bakery-products">
+            <h2 class="category-heading">Bakery <span>Items</span></h2>
+            <div class="product-container" data-category="bakery"></div>
+        </section>
+
+        <section class="category-products-section" id="snacks-beverages-products">
+            <h2 class="category-heading">Snacks & <span>Beverages</span></h2>
+            <div class="product-container" data-category="snacks-beverages"></div>
+        </section>
+    </section>
+
+    <section class="categories" id="categories">
+        <h1 class="heading">Product <span>Categories</span></h1>
+        <div class="category-container">
+        </div>
+    </section>
+
+    <section class="about-us" id="AboutUs">
+        <h1 class="heading">About <span>Us</span></h1>
+        <div class="content">
+            <p>Welcome to our grocery store! We are committed to providing the freshest and highest quality products to our customers. Our mission is to make healthy and delicious food accessible to everyone.</p>
+            <p>We source our products directly from local farms and trusted suppliers, ensuring freshness and supporting our community. Thank you for choosing us for your grocery needs!</p>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
