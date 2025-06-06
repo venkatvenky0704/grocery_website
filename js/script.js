@@ -1,106 +1,96 @@
 // Get references to key HTML elements that we'll interact with using JavaScript
-// These are essentially "handles" to elements on your web page.
-let searchForm = document.querySelector('.search-form'); // The search input form
-let shoppingCart = document.querySelector('.shopping-cart'); // The shopping cart display area
-let loginForm = document.querySelector('.login-form'); // The login form
-let navbar = document.querySelector('.navbar'); // The main navigation menu (will no longer be toggled by a button)
-let toastNotification = document.getElementById('toast-notification'); // The small pop-up notification
+let searchForm = document.querySelector('.search-form');
+let shoppingCart = document.querySelector('.shopping-cart');
+let loginForm = document.querySelector('.login-form');
+let navbar = document.querySelector('.navbar');
+let toastNotification = document.getElementById('toast-notification');
 
 // --- Universal Close Function ---
-// This function hides all the active overlay elements (search, cart, login, mobile nav).
-// This is super useful because when one opens, others should close for a clean UI.
 function closeAllOverlays() {
-    searchForm.classList.remove('active'); // Hides the search form
-    shoppingCart.classList.remove('active'); // Hides the shopping cart
-    loginForm.classList.remove('active'); // Hides the login form
-    navbar.classList.remove('active'); // Hides the mobile navigation menu (if active - though no longer toggled by button)
+    searchForm.classList.remove('active');
+    shoppingCart.classList.remove('active');
+    loginForm.classList.remove('active');
+    navbar.classList.remove('active');
 }
 
 // --- Header Icon Click Handlers ---
-// These sections define what happens when a user clicks on the icons in the header.
-
-// When the search button is clicked:
 document.querySelector('#search-btn').onclick = () => {
-    closeAllOverlays(); // First, close any other open overlays
-    searchForm.classList.toggle('active'); // Toggle the 'active' class on the search form
-                                          // This makes it visible if hidden, and hidden if visible.
-    // If the search form is now active (visible), focus on the search input for immediate typing
+    closeAllOverlays();
+    searchForm.classList.toggle('active');
     if (searchForm.classList.contains('active')) {
         document.getElementById('search-box').focus();
     }
 };
 
-// When the cart button is clicked:
 document.querySelector('#cart-btn').onclick = () => {
-    closeAllOverlays(); // Close other overlays
-    shoppingCart.classList.toggle('active'); // Toggle 'active' class on the shopping cart
+    closeAllOverlays();
+    shoppingCart.classList.toggle('active');
 };
 
-// When the login button is clicked:
 document.querySelector('#login-btn').onclick = () => {
-    closeAllOverlays(); // Close other overlays
-    loginForm.classList.toggle('active'); // Toggle 'active' class on the login form
+    closeAllOverlays();
+    loginForm.classList.toggle('active');
 };
 
 // --- Close active elements when clicking outside or scrolling ---
 document.addEventListener('click', (event) => {
-    // Check if the click happened *inside* any of our interactive elements
-    const isClickInsideHeader = event.target.closest('.header');
-    const isClickInsideSearch = event.target.closest('.search-form');
-    const isClickInsideCart = event.target.closest('.shopping-cart');
-    const isClickInsideLogin = event.target.closest('.login-form');
-    const isClickInsideNavbar = event.target.closest('.navbar'); // Check if click is inside the fixed navbar
+    const isSearchBtn = event.target.closest('#search-btn');
+    const isCartBtn = event.target.closest('#cart-btn');
+    const isLoginBtn = event.target.closest('#login-btn');
 
-    // Check if the click was directly on one of the remaining header icons
-    const isClickOnIcon = event.target.id === 'search-btn' ||
-                          event.target.id === 'cart-btn' || 
-                          event.target.id === 'login-btn'; 
+    const isClickOutsideSearch = !event.target.closest('.search-form.active') && !isSearchBtn;
+    const isClickOutsideCart = !event.target.closest('.shopping-cart.active') && !isCartBtn;
+    const isClickOutsideLogin = !event.target.closest('.login-form.active') && !isLoginBtn;
+    const isClickInsideNavbar = event.target.closest('.navbar'); // Check if click is inside the nav
 
-    // Logic to close overlays:
-    // If the click was NOT on an icon (which would open/toggle something)
-    // AND NOT inside any of the already open overlay areas, then close everything.
-    if (!isClickOnIcon && !isClickInsideHeader && !isClickInsideSearch && !isClickInsideCart && !isClickInsideLogin && !isClickInsideNavbar) {
-        closeAllOverlays(); // Close all active overlays
+    if (searchForm.classList.contains('active') && isClickOutsideSearch) {
+        searchForm.classList.remove('active');
+    }
+    if (shoppingCart.classList.contains('active') && isClickOutsideCart) {
+        shoppingCart.classList.remove('active');
+    }
+    if (loginForm.classList.contains('active') && isClickOutsideLogin) {
+        loginForm.classList.remove('active');
+    }
+    // Added logic to close navbar if open and click is outside
+    if (navbar.classList.contains('active') && !isClickInsideNavbar) {
+        navbar.classList.remove('active');
     }
 });
 
 window.onscroll = () => {
-    // If any of these overlays are currently active (visible), close them when the user scrolls.
     if (searchForm.classList.contains('active') ||
         shoppingCart.classList.contains('active') ||
         loginForm.classList.contains('active') ||
-        navbar.classList.contains('active')) { // Keep this, as navbar might be active due to CSS or other reasons
+        navbar.classList.contains('active')) { // Also close navbar on scroll
         closeAllOverlays();
     }
 };
 
-
 // --- Product and Category Data ---
-// These arrays hold all the information about your products and categories.
 const products = [
-    // 'rating' property has been completely removed from all products
     { id: 1, name: 'Watermelon(1kg)', price: 35, image: 'image/watermelon.jfif', category: 'fruits' },
     { id: 2, name: 'Mango(1kg)', price: 55, image: 'image/mango.jfif', category: 'fruits' },
     { id: 3, name: 'Organic Orange(1kg)', price: 50, image: 'image/orange.jfif', category: 'fruits' },
-    { id: 4, name: 'Red Apples (1kg)', price: 90, image: 'image/Apple.jfif', category: 'fruits' },
+    { id: 4, name: 'Red Apples (1kg)', price: 90, image: 'image/apple.jfif', category: 'fruits' },
     { id: 5, name: 'Green Grapes (500g)', price: 65, image: 'image/grapes.jfif', category: 'fruits' },
 
     { id: 6, name: 'Fresh Onion (1kg)', price: 25, image: 'image/onion.jfif', category: 'vegetables' },
     { id: 7, name: 'Fresh Potato (1kg)', price: 30, image: 'image/potato.jfif', category: 'vegetables' },
     { id: 8, name: 'Farm Fresh Tomato (1kg)', price: 40, image: 'image/tomato.jfif', category: 'vegetables' },
     { id: 9, name: 'Cauliflower(1pc)', price: 35, image: 'image/cauliflower.jfif', category: 'vegetables' },
-    { id: 10, name: 'Spinach (250g)', price: 25, image: 'image/Spinach.jfif', category: 'vegetables' },
+    { id: 10, name: 'Spinach (250g)', price: 25, image: 'image/spinach.jfif', category: 'vegetables' },
 
     { id: 11, name: 'Farm Fresh Milk (1L)', price: 60, image: 'image/milk.jfif', category: 'dairy' },
     { id: 12, name: 'Amul Butter (100g)', price: 50, image: 'image/butter.jfif', category: 'dairy' },
-    { id: 13, name: 'Paneer (200g)', price: 120, image: 'image/Paneer.jfif', category: 'dairy' },
-    { id: 14, name: 'Curd (500g)', price: 40, image: 'image/Curd.jfif', category: 'dairy' },
+    { id: 13, name: 'Paneer (200g)', price: 120, image: 'image/paneer.jfif', category: 'dairy' },
+    { id: 14, name: 'Curd (500g)', price: 40, image: 'image/curd.jfif', category: 'dairy' },
 
     { id: 15, name: 'Chicken Breast (500g)', price: 180, image: 'image/chicken.jfif', category: 'meat-fish' },
     { id: 16, name: 'Fish (500g)', price: 150, image: 'image/rohu-fish.jfif', category: 'meat-fish' },
     { id: 17, name: 'Eggs (Dozen)', price: 80, image: 'image/Eggs.jfif', category: 'meat-fish' },
 
-    { id: 18, name: 'Whole Wheat Bread', price: 45, image: 'image/Bread.jfif', category: 'bakery' },
+    { id: 18, name: 'Whole Wheat Bread', price: 45, image: 'image/bread.jfif', category: 'bakery' },
     { id: 19, name: 'Chocolate Banana Cake', price: 100, image: 'image/chocolate_banana_cake.jfif', category: 'bakery' },
     { id: 20, name: 'Chocolate Cookies', price: 60, image: 'image/cookies.jfif', category: 'bakery' },
 
@@ -110,7 +100,6 @@ const products = [
 ];
 
 const categories = [
-    // Each object represents a category with its name, image, and a unique ID
     { name: 'Fresh Fruits', image: 'image/cat-fruits.jfif', id: 'fruits' },
     { name: 'Fresh Vegetables', image: 'image/cat-vegetables.jfif', id: 'vegetables' },
     { name: 'Dairy Products', image: 'image/cat-dairy.jfif', id: 'dairy' },
@@ -119,79 +108,106 @@ const categories = [
     { name: 'Snacks & Beverages', image: 'image/cat-snacks.jfif', id: 'snacks-beverages' }
 ];
 
-
-// --- Render Products by Category ---
-// This function dynamically creates and displays product boxes on the page
-// for each category defined in the `products` array.
+// --- Render Products by Category (with quantity controls) ---
 function renderProductsByCategory() {
-    // Loop through each category defined in our `categories` array
     categories.forEach(category => {
-        // Find the specific HTML container for products of this category using its `data-category` attribute
         const container = document.querySelector(`.product-container[data-category="${category.id}"]`);
-        
-        // If a container exists for this category:
         if (container) {
-            container.innerHTML = ''; // Clear any existing content inside the container
-            // Filter the main `products` array to get only products belonging to the current category
+            container.innerHTML = ''; // Clear existing content to prevent duplicates on re-render
             const productsInThisCategory = products.filter(p => p.category === category.id);
 
-            // For each product in this category:
             productsInThisCategory.forEach(product => {
-                const productBox = document.createElement('div'); // Create a new div element
-                productBox.classList.add('product-box'); // Add the 'product-box' CSS class for styling
+                const productBox = document.createElement('div');
+                productBox.classList.add('product-box');
                 
-                // Set the inner HTML of the product box using a template literal (backticks ``)
+                // Add an initial quantity data attribute to each product box, default to 1
+                productBox.dataset.quantityToAdd = 1; 
+                
+                // Reordered elements for correct placement and added image-wrapper for styling
                 productBox.innerHTML = `
                     <div class="image-wrapper">
                         <img src="${product.image}" alt="${product.name}">
                     </div>
                     <h3>${product.name}</h3>
-                    <div class="price">₹${product.price.toFixed(2)}</div> <a href="#" class="btn add-to-cart" data-id="${product.id}">Add to Cart</a>
+                    <div class="price">₹${product.price.toFixed(2)}</div>
+                    <div class="quantity-control-product">
+                        <button class="qty-btn product-qty-minus" data-id="${product.id}">-</button>
+                        <span class="quantity-value" data-id="${product.id}">1</span>
+                        <button class="qty-btn product-qty-plus" data-id="${product.id}">+</button>
+                    </div>
+                    <a href="#" class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</a>
                 `;
-                container.appendChild(productBox); // Add the newly created product box to its category container
+                container.appendChild(productBox);
             });
         }
     });
 
-    // After all product boxes are rendered, attach event listeners to all "Add to Cart" buttons.
-    document.querySelectorAll('.add-to-cart').forEach(button => {
+    // Attach event listeners for product quantity buttons and Add to Cart
+    // These need to be re-attached because products are re-rendered
+    document.querySelectorAll('.product-qty-minus').forEach(button => {
         button.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent the default action (e.g., scrolling to top)
-            const productId = parseInt(button.dataset.id); // Get the product ID from the 'data-id' attribute
-            addToCart(productId); // Call the function to add this product to the cart
+            event.preventDefault(); // Prevent default link behavior
+            const productBox = button.closest('.product-box');
+            const quantitySpan = productBox.querySelector('.quantity-value');
+            let currentQuantity = parseInt(quantitySpan.textContent);
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                quantitySpan.textContent = currentQuantity;
+                productBox.dataset.quantityToAdd = currentQuantity; // Update quantity to add
+            }
+        });
+    });
+
+    document.querySelectorAll('.product-qty-plus').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            const productBox = button.closest('.product-box');
+            const quantitySpan = productBox.querySelector('.quantity-value');
+            let currentQuantity = parseInt(quantitySpan.textContent);
+            currentQuantity++;
+            quantitySpan.textContent = currentQuantity;
+            productBox.dataset.quantityToAdd = currentQuantity; // Update quantity to add
+        });
+    });
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productId = parseInt(button.dataset.id);
+            const productBox = button.closest('.product-box');
+            const quantityToAdd = parseInt(productBox.dataset.quantityToAdd); // Get the quantity from the data attribute
+            addToCart(productId, quantityToAdd); // Pass the quantity to addToCart
+            // Reset quantity display to 1 after adding to cart
+            productBox.querySelector('.quantity-value').textContent = 1;
+            productBox.dataset.quantityToAdd = 1;
         });
     });
 }
 
-
 // --- Render Categories (for the main Categories section with image boxes) ---
-// This function displays the clickable category boxes on the "Product Categories" section.
 function renderCategories() {
-    const categoryContainer = document.querySelector('.category-container'); // Get the main categories container
+    const categoryContainer = document.querySelector('.category-container');
     categoryContainer.innerHTML = ''; // Clear existing content
 
-    // Loop through each category
     categories.forEach(category => {
-        const categoryBox = document.createElement('div'); // Create a new div for the category box
-        categoryBox.classList.add('category-box'); // Add the 'category-box' CSS class
+        const categoryBox = document.createElement('div');
+        categoryBox.classList.add('category-box');
         
-        // Build the HTML for the category box (image, name, Shop Now button)
         categoryBox.innerHTML = `
             <img src="${category.image}" alt="${category.name}">
             <h3>${category.name}</h3>
             <a href="#${category.id}-products" class="btn category-shop-now" data-category-id="${category.id}">Shop Now</a>
         `;
-        categoryContainer.appendChild(categoryBox); // Add the category box to the container
+        categoryContainer.appendChild(categoryBox);
     });
 
-    // Attach event listeners to the "Shop Now" buttons within the category boxes
+    // Attach click listeners to category "Shop Now" buttons for smooth scrolling
     document.querySelectorAll('.category-shop-now').forEach(button => {
         button.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-            const targetCategoryId = button.dataset.categoryId; // Get the target category ID
-            const targetElement = document.getElementById(`${targetCategoryId}-products`); // Find the corresponding product section
+            event.preventDefault();
+            const targetCategoryId = button.dataset.categoryId;
+            const targetElement = document.getElementById(`${targetCategoryId}-products`);
 
-            // If the target section exists, smoothly scroll to it
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -199,203 +215,278 @@ function renderCategories() {
     });
 }
 
-
 // --- Shopping Cart Logic ---
-// This section manages the shopping cart state and its display.
-let cart = []; // An array to hold items currently in the cart. Each item will be a product object with a `quantity`.
-let toastTimeout; // Variable to hold the ID of the timeout for the toast notification, allowing us to clear it.
+let cart = JSON.parse(localStorage.getItem('groceryCart')) || [];
+let toastTimeout;
+
+// Function to save the cart state to Local Storage
+function saveCartToLocalStorage() {
+    localStorage.setItem('groceryCart', JSON.stringify(cart));
+}
 
 // Function to display a small, temporary notification (toast)
 function showToast(message) {
-    clearTimeout(toastTimeout); // Clear any previous toast timeout to show the new one immediately
-    if (!toastNotification) return; // Exit if the toast element isn't found
+    clearTimeout(toastTimeout); // Clear any existing timeout
+    if (!toastNotification) {
+        console.warn("Toast notification element not found!");
+        return;
+    }
 
-    toastNotification.textContent = message; // Set the message of the toast
-    toastNotification.classList.add('active'); // Add 'active' class to make it visible (CSS transition)
+    toastNotification.textContent = message;
+    toastNotification.classList.add('active'); // Activate CSS for display
 
-    // Set a timeout to hide the toast after 3 seconds
     toastTimeout = setTimeout(() => {
-        toastNotification.classList.remove('active'); // Remove 'active' class to hide it
-    }, 3000); // 3000 milliseconds = 3 seconds
+        toastNotification.classList.remove('active'); // Deactivate CSS after 3 seconds
+    }, 3000);
 }
 
-// Function to add a product to the cart
-function addToCart(productId) {
-    // Find the product in our `products` array using its ID
+// Function to add a product to the cart, with specified quantity
+function addToCart(productId, quantity) {
     const product = products.find(p => p.id === productId);
-    if (product) { // If the product is found:
-        // Check if the item already exists in the cart
+    if (product) {
         const existingItem = cart.find(item => item.id === productId);
         if (existingItem) {
-            existingItem.quantity++; // If it exists, just increase its quantity
+            existingItem.quantity += quantity; // Add specified quantity
         } else {
-            cart.push({ ...product, quantity: 1 }); // If new, add it to the cart with quantity 1
+            cart.push({ ...product, quantity: quantity }); // Add with specified quantity
         }
-        updateCartDisplay(); // Update the visual representation of the cart
-        showToast(`${product.name} added to cart!`); // Show a confirmation toast
+        updateCartDisplay();
+        saveCartToLocalStorage();
+        showToast(`${product.name} (x${quantity}) added to cart!`);
     }
 }
 
-function removeFromCart(productId) {
-    // Filter the cart to create a new array that excludes the item with the given productId
-    cart = cart.filter(item => item.id !== productId);
-    updateCartDisplay(); // Update the cart display
-    showToast('Item removed from cart!'); // Show a confirmation toast
+// Function to update item quantity in cart
+function updateCartItemQuantity(productId, newQuantity) {
+    const itemIndex = cart.findIndex(item => item.id === productId);
+    if (itemIndex > -1) {
+        if (newQuantity <= 0) {
+            // Remove item if quantity becomes 0 or less
+            removeFromCart(productId);
+        } else {
+            cart[itemIndex].quantity = newQuantity;
+            updateCartDisplay();
+            saveCartToLocalStorage();
+            showToast(`Updated quantity for ${cart[itemIndex].name} to ${newQuantity}`);
+        }
+    }
 }
 
+// Function to remove product from cart
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartDisplay();
+    saveCartToLocalStorage();
+    showToast('Item removed from cart!');
+}
+
+// Function to update the cart's visual display
 function updateCartDisplay() {
-    const shoppingCartDiv = document.querySelector('.shopping-cart'); // Get the main cart div
-    const totalDiv = shoppingCartDiv.querySelector('.total'); // Get the total price element
-    const cartQuantityBadge = document.querySelector('.cart-quantity-badge'); // Get the small badge on the cart icon
+    const shoppingCartDiv = document.querySelector('.shopping-cart');
+    const totalDiv = shoppingCartDiv.querySelector('.total');
+    const cartQuantityBadge = document.querySelector('.cart-quantity-badge');
 
     // Remove all existing product boxes from the cart display to rebuild it
-    const currentCartItems = Array.from(shoppingCartDiv.querySelectorAll('.box'));
-    currentCartItems.forEach(item => item.remove());
+    // Selects only elements that are immediate children and have 'box' class
+    Array.from(shoppingCartDiv.children).forEach(child => {
+        if (child.classList.contains('box')) {
+            child.remove();
+        }
+    });
 
-    // Use a DocumentFragment for efficient DOM manipulation
     const fragment = document.createDocumentFragment();
-    let overallTotal = 0; // Initialize total price
-    let totalItemsInCart = 0; // Initialize total number of items
+    let overallTotal = 0;
+    let totalItemsInCart = 0;
 
-    // If the cart is empty, display an "empty cart" message
     if (cart.length === 0) {
         const emptyCartMsg = document.createElement('div');
-        emptyCartMsg.classList.add('box'); // Add existing box styling
+        emptyCartMsg.classList.add('box'); // Apply box class for styling consistency
         emptyCartMsg.innerHTML = '<div class="content"><h3>Your cart is empty.</h3></div>';
         fragment.appendChild(emptyCartMsg);
     } else {
-        // If cart has items, iterate through each item to create its display box
         cart.forEach(item => {
             const cartItemBox = document.createElement('div');
-            cartItemBox.classList.add('box'); // Add 'box' class for styling
+            cartItemBox.classList.add('box');
             cartItemBox.innerHTML = `
-                <i class="fa fa-trash" data-id="${item.id}"></i> <img src="${item.image}" alt="${item.name}">
+                <i class="fa fa-trash" data-id="${item.id}"></i>
+                <img src="${item.image}" alt="${item.name}">
                 <div class="content">
                     <h3>${item.name}</h3>
-                    <span class="price">₹${item.price.toFixed(2)}</span>
-                    <span class="quantity">Qty: ${item.quantity}</span>
+                    <div class="price">₹${item.price.toFixed(2)}</div>
+                    <div class="quantity-control-cart">
+                        <button class="qty-btn cart-qty-minus" data-id="${item.id}">-</button>
+                        <span class="quantity-value">${item.quantity}</span>
+                        <button class="qty-btn cart-qty-plus" data-id="${item.id}">+</button>
+                    </div>
                 </div>
             `;
-            fragment.appendChild(cartItemBox); // Add the item box to the fragment
-            overallTotal += item.price * item.quantity; // Calculate total price
-            totalItemsInCart += item.quantity; // Calculate total items count
+            fragment.appendChild(cartItemBox);
+            overallTotal += item.price * item.quantity;
+            totalItemsInCart += item.quantity;
         });
     }
 
-    // Insert all created cart item boxes before the totalDiv
-    shoppingCartDiv.insertBefore(fragment, totalDiv);
-
-    totalDiv.textContent = `Total: ₹${overallTotal.toFixed(2)}`; // Update the displayed total price
+    const existingTotalDiv = shoppingCartDiv.querySelector('.total');
+    const existingCheckoutBtn = shoppingCartDiv.querySelector('.btn');
     
-    // Update the cart quantity badge on the main cart icon
+    // Insert new cart items before the total and checkout button
+    if (existingTotalDiv) {
+        shoppingCartDiv.insertBefore(fragment, existingTotalDiv);
+    } else {
+        // Fallback if total div is somehow missing, append to end
+        shoppingCartDiv.appendChild(fragment);
+    }
+
+    totalDiv.textContent = `Total: ₹${overallTotal.toFixed(2)}`;
+    
     if (cartQuantityBadge) {
-        cartQuantityBadge.textContent = totalItemsInCart; // Set the number of items
-        // Show/hide the badge based on whether there are items in the cart
+        cartQuantityBadge.textContent = totalItemsInCart;
         if (totalItemsInCart === 0) {
-            cartQuantityBadge.style.display = 'none';
+            cartQuantityBadge.style.display = 'none'; // Hide badge if cart is empty
         } else {
-            cartQuantityBadge.style.display = 'flex'; // Use flex to center the number
+            cartQuantityBadge.style.display = 'flex'; // Show badge
         }
     }
 
     // Attach click event listeners to all trash icons in the cart
+    // These need to be re-attached because cart items are re-rendered
     document.querySelectorAll('.shopping-cart .fa-trash').forEach(trashIcon => {
         trashIcon.addEventListener('click', (event) => {
-            const productId = parseInt(event.target.dataset.id); // Get the product ID from the data attribute
-            removeFromCart(productId); // Call function to remove the item
+            const productId = parseInt(event.target.dataset.id);
+            removeFromCart(productId);
+        });
+    });
+
+    // Attach event listeners for cart item quantity buttons
+    // These need to be re-attached because cart items are re-rendered
+    document.querySelectorAll('.cart-qty-minus').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productId = parseInt(button.dataset.id);
+            const quantitySpan = button.nextElementSibling; // Get the quantity span next to it
+            let currentQuantity = parseInt(quantitySpan.textContent);
+            if (currentQuantity > 0) {
+                updateCartItemQuantity(productId, currentQuantity - 1);
+            }
+        });
+    });
+
+    document.querySelectorAll('.cart-qty-plus').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const productId = parseInt(button.dataset.id);
+            const quantitySpan = button.previousElementSibling; // Get the quantity span before it
+            let currentQuantity = parseInt(quantitySpan.textContent);
+            updateCartItemQuantity(productId, currentQuantity + 1);
         });
     });
 }
 
-
 // --- Search Functionality ---
-// This section handles the search bar's behavior.
-const searchBox = document.getElementById('search-box'); // The search input field
-const searchFormElement = document.querySelector('.search-form'); // The search form itself
+const searchBox = document.getElementById('search-box');
+// The search form element reference is already available globally: searchForm
 
-// Listen for the 'Enter' key press in the search box
 searchBox.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent the default form submission (which reloads the page)
-        performSearch(); // Call the search function
+        event.preventDefault(); // Prevent form submission
+        performSearch();
     }
 });
 
-// Listen for a click on the search icon inside the search form
+// Click listener for the search icon/label next to the search box
 document.querySelector('.search-form label.fa-search').addEventListener('click', () => {
-    performSearch(); // Call the search function
+    performSearch();
 });
 
-// Main search logic function
 function performSearch() {
-    const searchTerm = searchBox.value.trim().toLowerCase(); // Get search term, remove whitespace, convert to lowercase
+    const searchTerm = searchBox.value.trim().toLowerCase();
 
+    // Remove any existing highlights
+    document.querySelectorAll('.product-box.highlight-search').forEach(el => el.classList.remove('highlight-search'));
+    document.querySelectorAll('.category-heading span.highlight-search').forEach(el => el.classList.remove('highlight-search'));
+    
     if (!searchTerm) {
-        showToast('Please enter a search term.'); // Notify user if search box is empty
-        return; // Stop the function
+        showToast('Please enter a search term.');
+        return;
     }
 
-    let foundMatch = false; // Flag to track if a match is found
-    let targetElement = null; // Variable to store the HTML element to scroll to
+    let foundMatch = false;
+    let targetElement = null;
 
-    // First, try to find the search term in product names
+    // Search through products first
     for (const product of products) {
         if (product.name.toLowerCase().includes(searchTerm)) {
-            // If found, identify the product's category section
             targetElement = document.getElementById(`${product.category}-products`);
             if (targetElement) {
                 foundMatch = true;
-                break; // Stop searching once a product match is found
+                // Scroll to the product category section
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Add highlight to the specific product box after a short delay
+                setTimeout(() => {
+                    const productBoxes = document.querySelectorAll(`.product-container[data-category="${product.category}"] .product-box`);
+                    productBoxes.forEach(box => {
+                        if (box.querySelector('h3').textContent.toLowerCase().includes(searchTerm)) {
+                            box.classList.add('highlight-search');
+                            setTimeout(() => box.classList.remove('highlight-search'), 3000); // Remove highlight after 3 seconds
+                        }
+                    });
+                }, 600); // Give time for scroll to initiate
+                break; // Found a product match, no need to search further
             }
         }
     }
 
-    // If no product match, try to find the search term in category names
+    // If no product match, search through categories
     if (!foundMatch) {
         for (const category of categories) {
             if (category.name.toLowerCase().includes(searchTerm)) {
-                // If found, identify the category's product section
                 targetElement = document.getElementById(`${category.id}-products`);
                 if (targetElement) {
                     foundMatch = true;
-                    break; // Stop searching once a category match is found
+                    // Scroll to the product category section
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Add highlight to the category heading after a short delay
+                    setTimeout(() => {
+                        const categoryHeadingSpan = targetElement.querySelector('.category-heading span');
+                        if (categoryHeadingSpan) {
+                            categoryHeadingSpan.classList.add('highlight-search');
+                            setTimeout(() => categoryHeadingSpan.classList.remove('highlight-search'), 3000); // Remove highlight after 3 seconds
+                        }
+                    }, 600); // Give time for scroll to initiate
+                    break; // Found a category match
                 }
             }
         }
     }
 
-    // If a match was found and a target element was identified:
     if (foundMatch && targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Smoothly scroll to the target section
-        showToast(`Scrolling to: ${searchTerm}`); // Notify user of successful search
+        showToast(`Scrolling to: ${searchTerm}`);
     } else {
-        showToast(`No results found for "${searchTerm}"`); // Notify user if no match found
+        showToast(`No results found for "${searchTerm}"`);
     }
 
-    searchForm.classList.remove('active'); // Hide the search form
-    searchBox.value = ''; // Clear the search box
+    // Close search form and clear input after search
+    searchForm.classList.remove('active');
+    searchBox.value = '';
 }
 
 // --- Toggle Details Function for Features Section ---
-// This function shows/hides the detailed content for the "Read More" buttons.
 function toggleDetails(id, button) {
     const details = document.getElementById(id);
     if (details.style.display === 'none' || details.style.display === '') {
         details.style.display = 'block';
-        button.textContent = 'Read Less'; // Change button text
+        button.textContent = 'Read Less';
     } else {
         details.style.display = 'none';
-        button.textContent = 'Read More'; // Change button text back
+        button.textContent = 'Read More';
     }
 }
 
-
 // --- Initialize on Page Load ---
-// This ensures that certain functions run as soon as the entire page is loaded.
 document.addEventListener('DOMContentLoaded', () => {
-    renderProductsByCategory(); // Render all product sections
-    renderCategories(); // Render the main category boxes
-    // renderDesktopCategoriesDropdown() and renderMobileCategoriesInMenu() calls removed
-    // because their respective HTML elements/buttons have been removed.
-    updateCartDisplay(); // Initialize the cart display (it will show "Your cart is empty" if nothing is added yet)
+    renderProductsByCategory();
+    renderCategories();
+    updateCartDisplay(); // Load and display cart from local storage on page load
 });
