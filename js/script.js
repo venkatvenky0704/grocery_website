@@ -5,6 +5,25 @@ let loginForm = document.querySelector('.login-form');
 let navbar = document.querySelector('.navbar');
 let toastNotification = document.getElementById('toast-notification');
 
+// contact form logic
+
+let Nameval = document.getElementById('contactName')
+let Phoneval = document.getElementById('contactPhone')
+let Ageval = document.getElementById('contactAge')
+let TicketId = document.getElementById('contactTicketId')
+
+document.getElementById('contactform').addEventListener('submit' , (e)=>{
+    e.preventDefault()
+    console.log(Nameval.value , Phoneval.value , Ageval.value , TicketId.value)
+    gtag("event" , "contact_form_event" , {
+        user_name: Nameval.value,
+        user_phone: Phoneval.value,
+        user_age: Ageval.value,
+        user_ticket: TicketId.value
+    })
+    console.log('gtag event sent successfully')
+})
+
 // --- Universal Close Function ---
 function closeAllOverlays() {
     searchForm.classList.remove('active');
