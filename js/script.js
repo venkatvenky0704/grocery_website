@@ -162,18 +162,18 @@ const products = [
     { id: 7, name: 'Fresh Potato (1kg)', price: 30, image: 'image/potato.jfif', category: 'vegetables' },
     { id: 8, name: 'Farm Fresh Tomato (1kg)', price: 40, image: 'image/tomato.jfif', category: 'vegetables' },
     { id: 9, name: 'Cauliflower (1pc)', price: 35, image: 'image/cauliflower.jfif', category: 'vegetables' },
-    { id: 10, name: 'Spinach (250g)', price: 25, image: 'image/spinach.jfif', category: 'vegetables' },
+    { id: 10, name: 'Spinach (250g)', price: 25, image: 'image/Spinach.jfif', category: 'vegetables' },
 
     { id: 11, name: 'Farm Fresh Milk (1L)', price: 60, image: 'image/milk.jfif', category: 'dairy' },
     { id: 12, name: 'Amul Butter (100g)', price: 50, image: 'image/butter.jfif', category: 'dairy' },
-    { id: 13, name: 'Paneer (200g)', price: 120, image: 'image/paneer.jfif', category: 'dairy' },
-    { id: 14, name: 'Curd (500g)', price: 40, image: 'image/curd.jfif', category: 'dairy' },
+    { id: 13, name: 'Paneer (200g)', price: 120, image: 'image/Paneer.jfif', category: 'dairy' },
+    { id: 14, name: 'Curd (500g)', price: 40, image: 'image/Curd.jfif', category: 'dairy' },
 
     { id: 15, name: 'Chicken Breast (500g)', price: 180, image: 'image/chicken.jfif', category: 'meat-fish' },
     { id: 16, name: 'Fish (500g)', price: 150, image: 'image/rohu-fish.jfif', category: 'meat-fish' },
     { id: 17, name: 'Eggs (Dozen)', price: 80, image: 'image/Eggs.jfif', category: 'meat-fish' },
 
-    { id: 18, name: 'Whole Wheat Bread', price: 45, image: 'image/bread.jfif', category: 'bakery' },
+    { id: 18, name: 'Whole Wheat Bread', price: 45, image: 'image/brown bread.jfif', category: 'bakery' },
     { id: 19, name: 'Chocolate Banana Cake', price: 100, image: 'image/chocolate_banana_cake.jfif', category: 'bakery' },
     { id: 20, name: 'Chocolate Cookies', price: 60, image: 'image/cookies.jfif', category: 'bakery' },
 
