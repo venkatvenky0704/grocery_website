@@ -12,6 +12,7 @@ let Nameval = document.getElementById('contactName');
 let Phoneval = document.getElementById('contactPhone');
 let Ageval = document.getElementById('contactAge');
 let TicketId = document.getElementById('contactTicketId');
+let Email = document.getElementById('contactEmail');
 
 const contactForm = document.getElementById('contactform');
 if (contactForm) { // Ensure the form exists before adding listener
@@ -23,6 +24,8 @@ if (contactForm) { // Ensure the form exists before adding listener
             gtag("event", "contact_form_event", {
                 user_name: Nameval.value,
                 user_phone: Phoneval.value,
+                user_email: Email.value,
+                submission_count: 1,
                 user_age: Ageval.value,
                 user_ticket: TicketId.value
             });
