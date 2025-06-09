@@ -77,7 +77,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h3 class="cart-title" style="display: none;">Your Cart</h3> <div class="cart-items-container">
         </div>
     <div class="total">Total: ₹0.00</div>
-    <a href="#" class="btn checkout-btn">Checkout</a>
+    <a href="#" class="btn checkout-btn" onclick="dataLayer.push({'event': 'link_click', 'link_url': this.href});">
+    Checkout
+</a>
+
 </div>
 
         <form action="#" class="login-form">
