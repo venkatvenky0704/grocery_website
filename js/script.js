@@ -84,22 +84,6 @@ document.querySelector('#login-btn').onclick = () => {
     }
 };
 
-// --- Toggle Navbar (Hamburger Menu) ---
-const menuBtn = document.querySelector('#menu-btn');
-if (menuBtn) {
-    menuBtn.onclick = () => {
-        // If the navbar is already active, close it.
-        if (navbar.classList.contains('active')) {
-            navbar.classList.remove('active');
-        } else {
-            // Otherwise, close all others and open the navbar.
-            searchForm.classList.remove('active');
-            shoppingCart.classList.remove('active');
-            loginForm.classList.remove('active');
-            navbar.classList.add('active');
-        }
-    };
-}
 function closeAllOverlays() {
     searchForm.classList.remove('active');
     shoppingCart.classList.remove('active');
