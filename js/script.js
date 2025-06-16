@@ -43,7 +43,7 @@ if (contactForm) { // Ensure the form exists before adding listener
         showToast('Thank you for your message!');
     });
 }
-
+// ---Header Button Click Handlers---
 document.querySelector('#search-btn').onclick = () => {
     // If the search form is already active, close it.
     if (searchForm.classList.contains('active')) {
