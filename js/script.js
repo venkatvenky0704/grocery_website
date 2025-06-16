@@ -7,7 +7,7 @@ let toastNotification = document.getElementById('toast-notification');
 let searchBox = document.getElementById('search-box'); // Moved up for global access
 let checkoutPopup = document.getElementById('checkoutPopup'); // Reference to the checkout popup
 
-// --- Contact Form Logic ---
+// --- Custom Event - Contact Form Logic ---
 let Nameval = document.getElementById('contactName');
 let Phoneval = document.getElementById('contactPhone');
 let Ageval = document.getElementById('contactAge');
@@ -39,6 +39,7 @@ if (contactForm) { // Ensure the form exists before adding listener
         Phoneval.value = '';
         Ageval.value = '';
         TicketId.value = '';
+        Email.value = '';
         showToast('Thank you for your message!');
     });
 }
